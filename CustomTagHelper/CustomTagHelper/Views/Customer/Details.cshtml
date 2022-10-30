@@ -1,0 +1,22 @@
+﻿@model CustomTagHelper.Models.CustomerViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>partial view</h4>
+
+    <hr />
+    @await Html.PartialAsync("_DetailsPartialView.cshtml", Model)
+
+    <h4>custom tag</h4>
+    <hr />
+    <customer-info value="Model"></customer-info>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id}) |
+    <a asp-action="Index">Back to List</a>
+</div>
