@@ -1,4 +1,5 @@
 ﻿using CustomTagHelper.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,7 +9,11 @@ namespace CustomTagHelper.Controllers
 {
     public class CustomerController : Controller
     {
+        #region private property
         private readonly string _sessionKey = "customers";
+        private readonly IValidator<CustomerViewModel> _validator;
+        #endregion
+        #region public property
         public List<CustomerViewModel> Customers 
         { 
             get
@@ -54,8 +59,12 @@ namespace CustomTagHelper.Controllers
                 
             }
         }
+        #endregion
 
-        public CustomerController() { }
+        public CustomerController(IValidator<CustomerViewModel> val) 
+        { 
+            _validator = val;
+        }
 
         // GET: CustomerController
         public ActionResult Index()
@@ -80,10 +89,17 @@ namespace CustomTagHelper.Controllers
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(CustomerViewModel model)
+        public async Task<IActionResult> Create(CustomerViewModel model)
         {
             try
             {
+                var result = await _validator.ValidateAsync(model);
+                if (!result.IsValid)
+                {
+                    result.AddToModelState(this.ModelState);
+                    return View("Create", model);
+                }
+
                 var list = Customers;
                 list.Add(model);
                 Customers = list;
@@ -91,7 +107,8 @@ namespace CustomTagHelper.Controllers
             }
             catch
             {
-                return View();
+                // to log:
+                throw new Exception("Server error!");
             }
         }
 

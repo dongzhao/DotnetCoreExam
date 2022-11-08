@@ -1,3 +1,7 @@
+using CustomTagHelper.Models;
+using CustomTagHelper.Validator;
+using FluentValidation;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -5,6 +9,9 @@ builder.Services.AddControllersWithViews();
 
 // manual add: using session  
 builder.Services.AddSession();
+
+// manual add: Fluent validator
+builder.Services.AddScoped<IValidator<CustomerViewModel>, CustomerViewModelValidator>();
 
 var app = builder.Build();
 
