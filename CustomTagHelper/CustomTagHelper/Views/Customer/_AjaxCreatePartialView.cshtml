@@ -1,0 +1,43 @@
+﻿<div id="divCustomerForm">
+    <div class="text-danger"></div>
+    <div class="form-group">
+        <label for="Id" class="control-label"></label>
+        <input name="Id" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="Firstname" class="control-label"></label>
+        <input name="Firstname" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="Lastname" class="control-label"></label>
+        <input name="Lastname" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="Username" class="control-label"></label>
+        <input for="Username" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="BirthDate" class="control-label"></label>
+        <input name="BirthDate" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <label for="Email" class="control-label"></label>
+        <input name="Email" class="form-control" />
+        <div class="invalid-feedback"></div>
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <ajax-button ajax-controller="customer" ajax-action="ajaxcreate" ajax-method="post" 
+            ajax-target-id="divCustomerForm" ajax-call-success="validateCustomerInput" ajax-call-failure="">Submit</ajax-button>
+    </div>
+</div>
+
+@*@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+*@

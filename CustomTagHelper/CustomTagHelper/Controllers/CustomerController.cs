@@ -86,10 +86,42 @@ namespace CustomTagHelper.Controllers
             return View(new CustomerViewModel() { Id = nextId });
         }
 
+        // GET: CustomerController/Create
+        public ActionResult AjaxCreate()
+        {
+            return View();
+        }
+
         // POST: CustomerController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CustomerViewModel model)
+        {
+            try
+            {
+                var result = await _validator.ValidateAsync(model);
+                if (!result.IsValid)
+                {
+                    result.AddToModelState(this.ModelState);
+                    return View("Create", model);
+                }
+
+                var list = Customers;
+                list.Add(model);
+                Customers = list;
+                return RedirectToAction(nameof(Index));
+            }
+            catch
+            {
+                // to log:
+                throw new Exception("Server error!");
+            }
+        }
+
+        // POST: CustomerController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AjaxCreate(CustomerViewModel model)
         {
             try
             {
