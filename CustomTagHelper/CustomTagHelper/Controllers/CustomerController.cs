@@ -97,14 +97,18 @@ namespace CustomTagHelper.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CustomerViewModel model)
         {
+            if (ModelState.IsValid)
+            {
+
+            }
             try
             {
-                var result = await _validator.ValidateAsync(model);
-                if (!result.IsValid)
-                {
-                    result.AddToModelState(this.ModelState);
-                    return View("Create", model);
-                }
+                //var result = await _validator.ValidateAsync(model);
+                //if (!result.IsValid)
+                //{
+                //    result.AddToModelState(this.ModelState);
+                //    return View("Create", model);
+                //}
 
                 var list = Customers;
                 list.Add(model);

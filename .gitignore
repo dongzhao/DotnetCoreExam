@@ -4,3 +4,8 @@ CustomTagHelper/.vs/CustomTagHelper/v17/.suo
 CustomTagHelper/CustomTagHelperTest/bin
 CustomTagHelper/CustomTagHelperTest/obj
 CustomTagHelper/.vs
+.vs/
+DDDDemo/DDD.Model.UnitTest/bin/
+DDDDemo/DDD.Model.UnitTest/obj/
+DDDDemo/DDD.Model/bin/
+DDDDemo/DDD.Model/obj/

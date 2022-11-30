@@ -7,10 +7,10 @@ namespace CustomTagHelper.Validator
     {
         public CustomerViewModelValidator()
         {
-            RuleFor(x => x.Firstname).MaximumLength(20);
-            RuleFor(x => x.Lastname).MaximumLength(20);
-            RuleFor(x => x.Username).NotEmpty().Length(1, 12);
-            RuleFor(x => x.Email).NotEmpty().EmailAddress();
+            RuleFor(x => x.Firstname).MaximumLength(20).WithMessage("over 20 characters limit");
+            RuleFor(x => x.Lastname).MaximumLength(20).WithMessage("over 20 characters limit");
+            //RuleFor(x => x.Username).NotEmpty().Length(1, 12);
+            //RuleFor(x => x.Email).NotEmpty().EmailAddress();
             RuleFor(x => x.BirthDate)
                 .GreaterThan(x => DateTime.Now.AddYears(-150))
                 .LessThan(x => DateTime.Now);
