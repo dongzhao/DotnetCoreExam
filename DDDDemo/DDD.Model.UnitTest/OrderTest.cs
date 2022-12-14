@@ -17,6 +17,12 @@ namespace DDD.Model.UnitTest
             this._ctx = _serviceProvider.GetService(typeof(ShoppingCartDbContext)) as ShoppingCartDbContext;
         }
 
+        [Test]
+        public void Test1()
+        {
+
+        }
+
         [TestCase(
             new string[] { "101 dummy street", "Sydney", "NSW", "2000", "AUS" } ,
             new string[] { "102 dummy street", "Sydney", "NSW", "2001", "AUS" } ,
