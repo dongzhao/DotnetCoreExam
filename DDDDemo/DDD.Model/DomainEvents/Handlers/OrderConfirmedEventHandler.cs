@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace DDD.Model.DomainEvents
 {
-    public class OrderConfirmedEventHandler
+    public class OrderConfirmedEventHandler : INotificationHandler<OrderConfirmedEvent>
     {
+        public Task Handle(OrderConfirmedEvent notification, CancellationToken cancellationToken)
+        {
+            // throw new NotImplementedException();
+            Console.WriteLine("Order Confirmed");
+            return Task.CompletedTask;
+        }
     }
 }

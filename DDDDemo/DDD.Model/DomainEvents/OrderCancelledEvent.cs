@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DDD.Model.Entities;
+using MediatR;
 
 namespace DDD.Model.DomainEvents
 {
-    public class OrderCancelledEvent
+    public class OrderCancelledEvent : INotification
     {
+        public Order Order { get; set; }
+        public OrderCancelledEvent(Order order)
+        {
+            this.Order = order;
+        }
     }
 }
