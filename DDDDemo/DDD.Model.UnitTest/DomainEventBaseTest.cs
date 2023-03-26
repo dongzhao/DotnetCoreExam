@@ -13,6 +13,7 @@ namespace DDD.Model.UnitTest
             var services = new ServiceCollection() as IServiceCollection;
             services.AddDbContext<ShoppingCartDbContext>(d => d.UseInMemoryDatabase(nameof(ShoppingCartDbContext)));
             services.AddMediatR(Assembly.GetExecutingAssembly());
+
             _serviceProvider = services.BuildServiceProvider();
         }
     }

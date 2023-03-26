@@ -192,13 +192,15 @@ namespace DDD.Model.UnitTest
                 Status = (OrderStatus)Enum.Parse(typeof(OrderStatus), orderDetails[2]), //OrderStatus.Pending,
             };
             _ctx.OrderSet.Add(orderObj);
-            orderObj.AddDomainEvent(new OrderConfirmedEvent(orderObj));
+            var orderConfirmedEvent = new OrderConfirmedEvent(orderObj);
+            orderObj.AddDomainEvent(orderConfirmedEvent);
 
-            _mediator.
             _ctx.SaveChanges();
             Assert.IsTrue(orderObj.Id > 0);
 
-
+            _mediator.Publish(orderConfirmedEvent);
+            orderObj.RemoveDomainEvent(orderConfirmedEvent);
+                
 
             var actual = _ctx.OrderSet.SingleOrDefault(e => e.Id == orderObj.Id);
             Assert.IsNotNull(actual);

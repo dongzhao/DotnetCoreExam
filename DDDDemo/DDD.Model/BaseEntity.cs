@@ -6,16 +6,16 @@ namespace DDD.Model
     public abstract class BaseEntity
     {
         private List<INotification> _domainEvents;
-        private List<INotification> DomainEvents => _domainEvents ?? (_domainEvents = new List<INotification>());
+        private List<INotification> DomainEvents => this._domainEvents ?? (this._domainEvents = new List<INotification>());
 
         public void AddDomainEvent(INotification notification)
         {
-            this._domainEvents.Add(notification);
+            this.DomainEvents.Add(notification);
         }
 
         public void RemoveDomainEvent(INotification notification)
         {
-            this._domainEvents?.Remove(notification);
+            this.DomainEvents?.Remove(notification);
         }
 
     }
