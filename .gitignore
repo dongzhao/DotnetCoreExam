@@ -9,3 +9,7 @@ DDDDemo/DDD.Model.UnitTest/bin/
 DDDDemo/DDD.Model.UnitTest/obj/
 DDDDemo/DDD.Model/bin/
 DDDDemo/DDD.Model/obj/
+/AsyncDemo/AsyncDemo/bin/Debug/net6.0
+/AsyncDemo/AsyncDemo/obj
+/AsyncDemo/AsyncDemo.UnitTest/bin
+/AsyncDemo/AsyncDemo.UnitTest/obj
