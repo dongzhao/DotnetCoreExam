@@ -11,16 +11,16 @@ namespace DDD.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [ForeignKey("Children")]
+        //[ForeignKey("Children")]
         public int? ParentId { get; set; }
         public string Title { get; set; }
-        public int HierarchyType { get; set; }
-        public string HierarchyItem { get; set; }
-        public string LinkHierarchyItem { get; set; }
-        public DateTime CreatedDateTime { get; set; }
-        public string CreatedBy { get; set; }
+        public int? HierarchyType { get; set; } = 0;
+        public string HierarchyItem { get; set; } = String.Empty;
+        public string LinkHierarchyItem { get; set; } = String.Empty;
+        public DateTime CreatedDateTime { get; set; } = DateTime.MinValue;
+        public string CreatedBy { get; set; } = String.Empty;
         public virtual Hierarchy Parent { get; set; }
-        public virtual ICollection<Hierarchy> Children { get; set; }
+        public virtual List<Hierarchy> Children { get; set; } = new();
     }
 
     public class HierarchyItem : IEqualityComparer<HierarchyItem>

@@ -45,6 +45,7 @@ namespace DDD.Model.UnitTest
         public virtual DbSet<Order> OrderSet { get; set; }
         public virtual DbSet<OrderItem> OrderItemSet { get; set; }
 
+        public virtual DbSet<Hierarchy> HierarchySet { get; set; }
         public ShoppingCartDbContext(DbContextOptions<ShoppingCartDbContext> options) : base(options)
         {
 
@@ -60,6 +61,13 @@ namespace DDD.Model.UnitTest
                 o.OwnsOne(c => c.Recipient);
                 o.OwnsOne(c => c.CreditCard);
             });
+
+            // create self-reference model binding
+            builder.Entity<Hierarchy>()
+                .HasMany(p => p.Children)
+                .WithOne(c => c.Parent)
+                .HasForeignKey(c => c.ParentId)
+                .IsRequired(false);
         }
     }
 }
