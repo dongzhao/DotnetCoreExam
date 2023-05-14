@@ -1,0 +1,51 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="T4\ModelHelper - Copy.tt" />
+    <None Remove="T4\ModelPersistentTestTemplate - Copy.tt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="T4\ModelHelper.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelHelper.cs</LastGenOutput>
+    </None>
+    <None Update="T4\ModelPersistentTestTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelPersistentTestTemplate.cs</LastGenOutput>
+    </None>
+    <None Update="T4\TextTemplate1.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TextTemplate1.txt</LastGenOutput>
+    </None>
+    <None Update="T4\TextTemplate1.txt">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TextTemplate1.tt</DependentUpon>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="T4\ModelHelper.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelHelper.tt</DependentUpon>
+    </Compile>
+    <Compile Update="T4\ModelPersistentTestTemplate.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ModelPersistentTestTemplate.tt</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+</Project>

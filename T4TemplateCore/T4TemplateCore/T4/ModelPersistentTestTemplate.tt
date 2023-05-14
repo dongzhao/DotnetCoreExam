@@ -1,0 +1,36 @@
+<#@ template debug="true" hostspecific="true" language="C#" #>
+
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)T4TemplateCore\bin\Debug\net6.0\T4TemplateCore.dll" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="T4TemplateCore" #>
+
+
+<#@ output extension=".cs" #>
+
+<#@ include file="ModelHelper.tt" #>
+
+<#
+    var modelPath = getSolutionUrl() + @"\T4TemplateCore\bin\Debug\net6.0\T4TemplateCore.dll";
+    var asse = Assembly.LoadFrom(modelPath);
+    //var typeList = asse.GetTypes();
+    var namelist = asse.GetName().Name;
+    var bb = "aa";
+#>
+/**
+Generated class by codegen 
+*/
+<#=namelist#>
+
+<#
+
+        //SaveOutput(@"..\" + myNameSpace +@".UnitTest\generated\" + className + "PersistentTest.cs");
+    // end of looping class
+#>
