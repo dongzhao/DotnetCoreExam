@@ -31,3 +31,7 @@ DDDDemo/DDD.Model/obj/
 /CleanArchitectureDemo/tests/Core.UnitTest/obj
 /CleanArchitectureDemo/tests/Infrastructure.UnitTest/bin
 /CleanArchitectureDemo/tests/Infrastructure.UnitTest/obj
+/CleanArchitectureDemo/src/Infrastructure/bin/Debug/net6.0
+/CleanArchitectureDemo/src/Web/bin/Debug/net6.0
+/CleanArchitectureDemo/tests/Web.UnitTest/bin
+/CleanArchitectureDemo/tests/Web.UnitTest/obj
