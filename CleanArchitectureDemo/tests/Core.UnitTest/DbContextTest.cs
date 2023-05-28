@@ -45,5 +45,7 @@ namespace Core.UnitTest
                     ownedNavigationBuilder.ToJson();
                 });
         }
+
+
     }
 }

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Core.Entities
 {
-    public abstract class BaseEntity<ID> : BaseDomain, IEntity<ID>
+    public abstract class BaseEntity<ID> : BaseEvent, IEntity<ID>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

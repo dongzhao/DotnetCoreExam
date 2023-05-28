@@ -21,16 +21,20 @@ namespace Infrastructure.Data.Repositories
             return entity;
         }
 
-        public Task DeleteAsync(T entity)
+        public virtual Task DeleteAsync(ID id)
+        {
+            T obj = _dbSet.Find(id);
+            if(_ctx.Entry(obj).State == EntityState.Detached)
+            {
+                _dbSet.Attach(obj);
+            }
+            return DeleteAsync(obj);
+        }
+
+        public virtual Task DeleteAsync(T entity)
         {
             _dbSet.Remove(entity);
             return Task.CompletedTask;
-        }
-
-        public virtual async Task DeleteAsync(ID id)
-        {
-            var entity = await Get(id);
-            await DeleteAsync(entity);
         }
 
         public virtual Task UpdateAsync(T entity)
@@ -44,9 +48,13 @@ namespace Infrastructure.Data.Repositories
             return await _dbSet.FindAsync(id);
         }
 
-        public virtual async Task<IEnumerable<T>> GetMany(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, int? top = null, int? skip = null)
+        public virtual async Task<IEnumerable<T>> GetMany(
+            Expression<Func<T, bool>> filter, 
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null, 
+            int? pageSize = null, 
+            int? pageNumber = null)
         {
-            IQueryable<T> query = _dbSet;
+            IQueryable<T> query = _dbSet as IQueryable<T>;
 
             if (filter != null)
             {
@@ -61,6 +69,15 @@ namespace Infrastructure.Data.Repositories
             if(orderBy != null)
             {
                 query = orderBy(query);
+            }
+
+            if(pageNumber.HasValue)
+            {
+                query = query.Skip(pageNumber.Value - 1);
+            }
+            if(pageSize.HasValue)
+            {
+                query = query.Take(pageSize.Value);
             }
 
             return await query.ToListAsync();

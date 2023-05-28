@@ -78,7 +78,7 @@ namespace Infrastructure.UnitTest
                 Id = 1,
             };
 
-            var actural = await _unitOfWork.CatalogRepository.de(expected.Id);
+            var actural = await _unitOfWork.CatalogRepository.DeleteAsync(expected.Id);
 
             // update fields
             await _unitOfWork.CatalogRepository.UpdateAsync(actural);

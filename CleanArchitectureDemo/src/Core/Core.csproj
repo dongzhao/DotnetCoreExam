@@ -7,6 +7,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="DomainEvents\OrderCancelledEvent.cs" />
+    <Compile Remove="DomainEvents\OrderConfirmedEvent.cs" />
+    <Compile Remove="DomainEvents\OrderShippedEvent.cs" />
+    <Compile Remove="Entities\BaseDomain.cs" />
+    <Compile Remove="EventHandlers\OrderCancelledEventHandler.cs" />
+    <Compile Remove="EventHandlers\OrderConfirmedEventHandler.cs" />
+    <Compile Remove="EventHandlers\OrderShippedEventHandler.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Domains\" />
     <Folder Include="Exceptions\" />
     <Folder Include="Interfaces\" />
@@ -15,6 +25,7 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="12.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>

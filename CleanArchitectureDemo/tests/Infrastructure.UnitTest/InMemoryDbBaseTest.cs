@@ -1,9 +1,9 @@
-﻿using Core.Entities;
-using Infrastructure.Data;
+﻿using Infrastructure.Data;
 using Infrastructure.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Shared.Interfaces;
+using System.Reflection;
 
 namespace Infrastructure.UnitTest
 {
@@ -18,6 +18,8 @@ namespace Infrastructure.UnitTest
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
 
+            services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
+            services.AddMediatR(typeof(MediatorDomainEventDispatcher).GetTypeInfo().Assembly);
 
             _serviceProvider = services.BuildServiceProvider();
 

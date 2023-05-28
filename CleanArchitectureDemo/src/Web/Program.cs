@@ -1,4 +1,17 @@
+using System.Reflection;
+using Web.Mapper;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+// Add services to the container.
+builder.Services.AddControllersWithViews();
+
+// manual add:
+builder.Services.AddSession(); //  using session  
+builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
+
+
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -21,5 +34,11 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapRazorPages();
+
+// manual add: using session  
+app.UseSession();
+//app.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
