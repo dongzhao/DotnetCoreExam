@@ -1,4 +1,5 @@
 ﻿
+using Core.DomainEvents;
 using Core.Enums;
 using Core.Values;
 using Shared.Interfaces;
@@ -28,5 +29,9 @@ namespace Core.Entities
         public CardType CardType { get; set; }
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
+        public void AddToEvents()
+        {
+            this.PublishEvent(new OrderConfirmed(this));
+        }
     }
 }

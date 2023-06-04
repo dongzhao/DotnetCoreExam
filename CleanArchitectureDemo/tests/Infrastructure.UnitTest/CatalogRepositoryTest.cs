@@ -2,19 +2,12 @@
 using Core.Entities;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Infrastructure.UnitTest
 {
-    public class CatalogRepositoryInMemoryTest : InMemoryDbBaseTest
+    public class CatalogRepositoryInMemoryTest : DomainEventBaseTest
     {
-        private IUnitOfWork _unitOfWork ;
-
-        [SetUp]
-        public void Setup()
-        {
-            this._unitOfWork = _serviceProvider.GetService(typeof(IUnitOfWork)) as IUnitOfWork;
-        }
-
         [Test, Order(1)]
         public async Task test_add_async()
         {
@@ -78,14 +71,13 @@ namespace Infrastructure.UnitTest
                 Id = 1,
             };
 
-            var actural = await _unitOfWork.CatalogRepository.DeleteAsync(expected.Id);
-
-            // update fields
-            await _unitOfWork.CatalogRepository.UpdateAsync(actural);
+            await _unitOfWork.CatalogRepository.DeleteAsync(expected.Id);
             await _unitOfWork.CommitChangesAsync();
 
-            Assert.IsNotNull(actural);
             // verify all fields
+            var actural = await _unitOfWork.CatalogRepository.Get(expected.Id);
+            Assert.IsNull(actural);
+            
         }
     }
 

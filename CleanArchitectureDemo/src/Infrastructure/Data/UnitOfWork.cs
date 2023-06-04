@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Shared.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Infrastructure.Data
 {
@@ -14,13 +13,10 @@ namespace Infrastructure.Data
 
         private readonly AppDbContext _ctx;
 
-        private readonly IMediator _mediator;
-
         private readonly IDomainEventDispatcher _dispatcher;
 
         public UnitOfWork(
             AppDbContext ctx,
-            IMediator mediator,
             IDomainEventDispatcher dispatcher,
             IRepository<Catalog, int> catalogRepo,
             IRepository<Order, int> orderRepo,
@@ -28,7 +24,6 @@ namespace Infrastructure.Data
             )
         {
             this._ctx = ctx;
-            this._mediator = mediator;
             this._dispatcher = dispatcher;
             this.CatalogRepository = catalogRepo;
             this.OrderRepository = orderRepo;
@@ -81,8 +76,8 @@ namespace Infrastructure.Data
         IRepository<OrderItem, int> OrderItemRepository { get; set; }
         IRepository<HierarchyItem, int> HierarchyItemRepository { get; set; }
 
-        Task CommitChangesAsync(CancellationToken cancellationToken);
+        Task CommitChangesAsync(CancellationToken cancellationToken = default(CancellationToken));
 
-        Task CommitAndNotifyAsync(CancellationToken cancellationToken);
+        Task CommitAndNotifyAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 }
