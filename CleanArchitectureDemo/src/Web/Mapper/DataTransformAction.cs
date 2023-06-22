@@ -10,7 +10,7 @@ namespace Web.Mapper
     {
         public void Process(Source source, Target destination, ResolutionContext context)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
 
             var props = typeof(Target).GetProperties();
             foreach(var prop in props)

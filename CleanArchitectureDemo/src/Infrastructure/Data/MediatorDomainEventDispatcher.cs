@@ -18,9 +18,9 @@ namespace Infrastructure.Data
         public async Task Dispatch(IDomainEvent domainEvent)
         {
             //var domainEventNotification = _createDomainEventNotification(domainEvent);
-            var domainEventNotification = domainEvent as INotification;
+            //var domainEventNotification = domainEvent as INotification;
             _log.LogDebug($"Dispatching notification...  EventType: {domainEvent.GetType()}");
-            await _mediator.Publish(domainEventNotification);
+            await _mediator.Publish(domainEvent);
         }
 
         //private INotification _createDomainEventNotification(IDomainEvent domainEvent)

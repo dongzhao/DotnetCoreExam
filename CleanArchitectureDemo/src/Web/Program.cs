@@ -1,8 +1,37 @@
+using Core.DomainEvents;
+using Infrastructure;
+using Infrastructure.Data;
+using Infrastructure.Data.Repositories;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Shared.Interfaces;
 using System.Reflection;
 using Web.Hubs;
 using Web.Mapper;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var config = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile(path: "appsettings.Development.json", optional: true, reloadOnChange: true)
+    .Build();
+
+//builder.Services.AddDbContext<AppDbContext>(d => d.UseSqlServer(config.GetConnectionString(nameof(AppDbContext))));
+builder.Services.AddDbContext<AppDbContext>(d => d.UseInMemoryDatabase(nameof(AppDbContext)));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IRepository<,>), typeof(BaseRepository<,>));
+
+builder.Services.AddLogging(builder =>
+{
+    builder.AddConfiguration(config.GetSection("Logging"));
+    builder.AddDebug();
+    builder.AddConsole();
+});
+
+// add MediatR dependency injection
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetAssembly(typeof(DomainEventListener))));
+builder.Services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
+builder.Services.AddScoped<INotificationHandler<OrderConfirmed>, DomainEventListener>();
 
 // SigalR: manual added signalR dependency
 builder.Services.AddSignalR();
@@ -12,6 +41,8 @@ builder.Services.AddControllersWithViews();
 
 // manual add:
 builder.Services.AddSession(); //  using session  
+
+// auto mapper
 builder.Services.AddAutoMapper(Assembly.GetAssembly(typeof(MappingProfile)));
 
 
@@ -52,6 +83,6 @@ app.MapControllerRoute(
 
 //});
 app.MapHub<ChatHub>("/chathub");
-app.MapHub<DomainEventHub>("/DomainEventHub");
+app.MapHub<DomainEventHub>("/domainEventHub");
 
 app.Run();

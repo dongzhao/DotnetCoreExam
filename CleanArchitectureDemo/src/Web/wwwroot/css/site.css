@@ -16,3 +16,23 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/**
+* custom css
+*/
+
+/* nav header icon */
+
+.navHeaderIcon {
+    position: relative;   
+}
+
+    .navHeaderIcon i {
+        font-size: 2em;
+    }
+
+    .navHeaderIcon span {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
