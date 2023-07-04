@@ -9,9 +9,9 @@ var viewNotificaton = function () {
 };
 
 var showNotificaton = function () {
-    const counter = $(this).data("notification");
-    $(this).data("notification", counter+1);
-    $(this).text(""+ (counter + 1));
+    const counter = parseInt($("#notifications").text());
+    //$(this).data("notification", counter+1);
+    $("#notifications").text(""+ (counter + 1));
 };
 
 $("#notifications").on("click", viewNotificaton);

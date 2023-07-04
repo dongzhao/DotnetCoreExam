@@ -29,9 +29,9 @@ builder.Services.AddLogging(builder =>
 
 // add MediatR dependency injection
 //builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetAssembly(typeof(DomainEventListener))));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetAssembly(typeof(OrderConfirmedHandler))));
 builder.Services.AddScoped<IDomainEventDispatcher, MediatorDomainEventDispatcher>();
-builder.Services.AddScoped<INotificationHandler<OrderConfirmed>, DomainEventListener>();
+//builder.Services.AddScoped<INotificationHandler<OrderConfirmed>, DomainEventListener>();
 
 // SigalR: manual added signalR dependency
 builder.Services.AddSignalR();
@@ -61,6 +61,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
@@ -83,6 +84,7 @@ app.MapControllerRoute(
 
 //});
 app.MapHub<ChatHub>("/chathub");
-app.MapHub<DomainEventHub>("/domainEventHub");
+//app.MapHub<DomainEventHub>("/domainEventHub");
+app.MapHub<OrderConfirmedHub>("/orderConfirmedHub");
 
 app.Run();
