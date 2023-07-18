@@ -1,0 +1,11 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "20.4.2",
+    "gulp": "4.0.2",
+    "@types/jquery": "3.5.16",
+    "mocha": "10.2.0"
+  }
+}
